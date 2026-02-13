@@ -11,7 +11,7 @@ Follow the steps below to set up the environment and install dependencies:
 conda create --name moe_pruning
 conda activate moe_pruning
 
-mkdir moe_pruning
+git clone https://github.com/nowazrabbani/MoE_Pruning.git
 cd moe_pruning
 
 git clone https://github.com/google-research/vmoe.git vision_moe
