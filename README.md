@@ -143,7 +143,7 @@ The finetuned pruned checkpoint is saved to the path specified by `--savefile` a
 
 ## Citation
 
-If you find this repository useful, please cite the following papers:
+If you find this repository useful, please cite the following paper:
 
 ```bibtex
 @inproceedings{chowdhury2024provably,
