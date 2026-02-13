@@ -98,3 +98,46 @@ python inference_on_pruned_vmoe_model.py \
 
 The script reports evaluation metrics (e.g., top-1 / top-5 accuracy) on the specified dataset split using the pruned model checkpoint.
 
+## Finetuning the Pruned Model
+
+Use the following script to finetune a pruned VMoE checkpoint on a downstream dataset.
+
+### Example Command
+
+```bash
+python finetune_pruned_model.py \
+  --workdir=/home/chowdm2/src/moe_pruning/temp \
+  --pruned_model=pruned_ckpts/vmoe_ft_imagenet1k_router_norm_change_encoders_1357911_pruned_2_experts \
+  --savefile=pruned_ckpts/vmoe_ft_imagenet1k_router_norm_change_encoders_1357911_pruned_2_experts_finetuned.pkl \
+  --dataset_name=imagenet2012 \
+  --batch_size=32 \
+  --num_classes=1000 \
+  --image_size=384 \
+  --evaluate_evry_steps=100 \
+  --train_steps=1000 \
+  --unpruned_experts_per_encoder=encoderblock_1=6,encoderblock_3=6,encoderblock_5=6,encoderblock_7=6,encoderblock_9=6,encoderblock_11=6 \
+  --lr_peak=0.00009375 \
+  --lr_end=1e-5 \
+  --lr_warmup_steps=500
+```
+
+### Arguments
+
+* `--workdir` : Directory for logs, checkpoints, and training artifacts.
+* `--pruned_model` : Path to the pruned model checkpoint (without `.pkl` extension if applicable).
+* `--savefile` : Output path to save the finetuned checkpoint.
+* `--dataset_name` : Dataset used for finetuning (e.g., `imagenet2012`).
+* `--batch_size` : Training batch size.
+* `--num_classes` : Number of output classes.
+* `--image_size` : Input image resolution.
+* `--evaluate_evry_steps` : Evaluation frequency during training.
+* `--train_steps` : Total finetuning steps.
+* `--unpruned_experts_per_encoder` : Number of remaining experts per pruned MoE layer.
+* `--lr_peak` : Peak learning rate.
+* `--lr_end` : Final learning rate.
+* `--lr_warmup_steps` : Number of warmup steps.
+
+### Output
+
+The finetuned pruned checkpoint is saved to the path specified by `--savefile` and can be used for inference or further training.
+
