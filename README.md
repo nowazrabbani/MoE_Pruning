@@ -28,6 +28,38 @@ cd ..
 
 pip install -q 'jax[cuda]' -f https://storage.googleapis.com/jax-releases/jax_releases.html
 
+## Pruning and Saving Checkpoints
+
+Use the script below to prune experts from a finetuned VMoE checkpoint and save the pruned model.
+
+### Example Command
+
+```bash
+python prune_and_save_checkpoint.py \
+  --finetuned_ckpt gs://vmoe_checkpoints/vmoe_b16_imagenet21k_randaug_strong_ft_ilsvrc2012 \
+  --pretrained_ckpt gs://vmoe_checkpoints/vmoe_b16_imagenet21k_randaug_strong \
+  --output pruned_ckpts/vmoe_ft_imagenet1k_router_norm_change_encoders_1357911_pruned_2_experts.pkl \
+  --num_experts_per_layer 8 \
+  --num_experts_to_prune_per_layer 2 \
+  --pruning_method router_norm_change \
+  --moe_layers_to_prune 1,3,5,7,9,11
+```
+
+### Arguments
+
+* `--finetuned_ckpt` : Path to the finetuned checkpoint.
+* `--pretrained_ckpt` : Path to the pretrained checkpoint (used as reference for pruning).
+* `--output` : File path to save the pruned checkpoint.
+* `--num_experts_per_layer` : Total number of experts in each MoE layer.
+* `--num_experts_to_prune_per_layer` : Number of experts to prune per layer.
+* `--pruning_method` : Criterion used for pruning (e.g., `router_norm_change`).
+* `--moe_layers_to_prune` : Comma-separated list of MoE encoder layers to prune.
+
+### Output
+
+The script saves a pruned checkpoint at the location specified by `--output`, which can be used for further finetuning or inference.
+
+
 rm -rf vision_moe
 rm -rf vision_transformer
 ```
