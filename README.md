@@ -27,6 +27,9 @@ pip install -r requirements.txt
 cd ..
 
 pip install -q 'jax[cuda]' -f https://storage.googleapis.com/jax-releases/jax_releases.html
+
+rm -rf vision_moe
+rm -rf vision_transformer
 ```
 
 ## Pruning and Saving Checkpoints
@@ -60,8 +63,38 @@ python prune_and_save_checkpoint.py \
 
 The script saves a pruned checkpoint at the location specified by `--output`, which can be used for further finetuning or inference.
 
+## Inference on Pruned VMoE Model
 
-rm -rf vision_moe
-rm -rf vision_transformer
+Use the following script to run inference using a pruned VMoE checkpoint.
+
+### Example Command
+
+```bash
+python inference_on_pruned_vmoe_model.py \
+  --dataset imagenet2012 \
+  --split test \
+  --num_classes 1000 \
+  --checkpoint pruned_ckpts/vmoe_ft_imagenet1k_router_norm_change_encoders_1357911_pruned_2_experts.pkl \
+  --capacity_factor 1.5 \
+  --batch_size 128 \
+  --image_size 384 \
+  --patch_size 16 \
+  --unpruned_experts encoderblock_1=6,encoderblock_3=6,encoderblock_5=6,encoderblock_7=6,encoderblock_9=6,encoderblock_11=6
 ```
+
+### Arguments
+
+* `--dataset` : Dataset name (e.g., `imagenet2012`).
+* `--split` : Dataset split for evaluation (`train` / `val` / `test`).
+* `--num_classes` : Number of output classes.
+* `--checkpoint` : Path to the pruned checkpoint.
+* `--capacity_factor` : MoE routing capacity factor.
+* `--batch_size` : Batch size for inference.
+* `--image_size` : Input image resolution.
+* `--patch_size` : Patch size used in the model.
+* `--unpruned_experts` : Number of remaining experts per pruned MoE layer (layer-wise specification).
+
+### Output
+
+The script reports evaluation metrics (e.g., top-1 / top-5 accuracy) on the specified dataset split using the pruned model checkpoint.
 
