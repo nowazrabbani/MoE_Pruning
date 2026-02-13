@@ -3,4 +3,34 @@ This repository implements expert-pruning, finetuning, and inference of [Google'
 
 ### Installation
 
+## Installation
+
+Follow the steps below to set up the environment and install dependencies:
+
+```bash
+conda create --name moe_pruning
+conda activate moe_pruning
+
+mkdir moe_pruning
+cd moe_pruning
+
+git clone https://github.com/google-research/vmoe.git vision_moe
+git clone https://github.com/google-research/vision_transformer.git
+
+mv vision_moe/vmoe .
+mv vision_transformer/vit_jax .
+
+cd vision_moe
+pip install -r requirements.txt
+cd ..
+
+cd vit_jax
+pip install -r requirements.txt
+cd ..
+
+pip install -q 'jax[cuda]' -f https://storage.googleapis.com/jax-releases/jax_releases.html
+
+rm -rf vision_moe
+rm -rf vision_transformer
+```
 
