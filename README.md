@@ -27,6 +27,7 @@ pip install -r requirements.txt
 cd ..
 
 pip install -q 'jax[cuda]' -f https://storage.googleapis.com/jax-releases/jax_releases.html
+```
 
 ## Pruning and Saving Checkpoints
 
