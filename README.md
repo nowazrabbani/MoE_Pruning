@@ -141,3 +141,17 @@ python finetune_pruned_model.py \
 
 The finetuned pruned checkpoint is saved to the path specified by `--savefile` and can be used for inference or further training.
 
+## Citation
+
+If you find this repository useful, please cite the following papers:
+
+```bibtex
+@inproceedings{chowdhury2024provably,
+  title={A provably effective method for pruning experts in fine-tuned sparse mixture-of-experts},
+  author={Chowdhury, Mohammed Nowaz Rabbani and Wang, Meng and El Maghraoui, Kaoutar and Wang, Naigang and Chen, Pin-Yu and Carothers, Christopher},
+  booktitle={Proceedings of the 41st International Conference on Machine Learning},
+  pages={8815--8847},
+  year={2024}
+}
+```
+
