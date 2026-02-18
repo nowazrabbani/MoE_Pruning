@@ -104,9 +104,11 @@ Use the following script to finetune a pruned VMoE checkpoint on a downstream da
 
 ### Example Command
 
+### Example Command
+
 ```bash
 python finetune_pruned_model.py \
-  --workdir=/home/chowdm2/src/moe_pruning/temp \
+  --workdir=/path/to/moe_pruning/temp \
   --pruned_model=pruned_ckpts/vmoe_ft_imagenet1k_router_norm_change_encoders_1357911_pruned_2_experts \
   --savefile=pruned_ckpts/vmoe_ft_imagenet1k_router_norm_change_encoders_1357911_pruned_2_experts_finetuned.pkl \
   --dataset_name=imagenet2012 \
@@ -120,6 +122,9 @@ python finetune_pruned_model.py \
   --lr_end=1e-5 \
   --lr_warmup_steps=500
 ```
+
+> **Note:** Replace `/path/to/moe_pruning/` with the absolute path to the repository on your system.
+
 
 ### Arguments
 
