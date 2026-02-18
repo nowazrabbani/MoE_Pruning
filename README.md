@@ -104,8 +104,6 @@ Use the following script to finetune a pruned VMoE checkpoint on a downstream da
 
 ### Example Command
 
-### Example Command
-
 ```bash
 python finetune_pruned_model.py \
   --workdir=/path/to/moe_pruning/temp \
